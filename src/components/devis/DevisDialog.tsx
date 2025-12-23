@@ -17,7 +17,7 @@ interface DevisDialogProps {
   devis?: Devis | null;
 }
 
-const statusOptions = ["brouillon", "envoye", "accepte", "refuse", "payes"];
+const statusOptions = ["signe", "envoye", "accepte", "refuse", "payes"];
 
 export const DevisDialog = ({ open, onOpenChange, devis }: DevisDialogProps) => {
   const queryClient = useQueryClient();
@@ -56,7 +56,7 @@ export const DevisDialog = ({ open, onOpenChange, devis }: DevisDialogProps) => 
       reset(devis);
     } else {
       reset({
-        statut: "brouillon",
+        statut: "envoye",
         tva_pct: 10,
         montant_ht: 0,
         montant_ttc: 0,
