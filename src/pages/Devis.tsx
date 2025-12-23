@@ -29,7 +29,6 @@ const statusColors = {
   'accepte': 'default',
   'refuse': 'destructive',
   'payes': 'default',
-  'signe': 'default',
 } as const;
 
 export default function DevisPage() {
@@ -136,7 +135,6 @@ export default function DevisPage() {
             <SelectItem value="accepte">Accepté</SelectItem>
             <SelectItem value="refuse">Refusé</SelectItem>
             <SelectItem value="payes">Payés</SelectItem>
-            <SelectItem value="signe">Signé</SelectItem>
           </SelectContent>
         </Select>
       </div>
