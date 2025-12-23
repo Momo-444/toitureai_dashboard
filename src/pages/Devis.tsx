@@ -24,7 +24,7 @@ import {
 } from '@/components/ui/alert-dialog';
 
 const statusColors = {
-  'brouillon': 'secondary',
+  'signe': 'default',
   'envoye': 'default',
   'accepte': 'default',
   'refuse': 'destructive',
@@ -131,7 +131,7 @@ export default function DevisPage() {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">Tous les statuts</SelectItem>
-            <SelectItem value="brouillon">Brouillon</SelectItem>
+            <SelectItem value="signe">Signé</SelectItem>
             <SelectItem value="envoye">Envoyé</SelectItem>
             <SelectItem value="accepte">Accepté</SelectItem>
             <SelectItem value="refuse">Refusé</SelectItem>
