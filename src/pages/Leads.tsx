@@ -140,6 +140,7 @@ export default function LeadsPage() {
     accepte: 'bg-emerald-500',
     refuse: 'bg-red-500',
     perdu: 'bg-gray-500',
+    chaud: 'bg-green-500',
   };
 
   return (
@@ -184,6 +185,7 @@ export default function LeadsPage() {
             <SelectItem value="accepte">Accepté</SelectItem>
             <SelectItem value="refuse">Refusé</SelectItem>
             <SelectItem value="perdu">Perdu</SelectItem>
+            <SelectItem value="chaud">Chaud</SelectItem>
           </SelectContent>
         </Select>
       </div>
