@@ -24,11 +24,11 @@ import {
 } from '@/components/ui/alert-dialog';
 
 const statusColors = {
-  'signe': 'default',
-  'envoye': 'default',
-  'accepte': 'default',
-  'refuse': 'destructive',
-  'payes': 'default',
+  'signe': 'bg-purple-500',
+  'envoye': 'bg-green-500',
+  'accepte': 'bg-emerald-500',
+  'refuse': 'bg-red-500',
+  'payes': 'bg-blue-500',
 } as const;
 
 export default function DevisPage() {
