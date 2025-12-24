@@ -10,15 +10,23 @@ interface StatusBadgeProps {
 
 const statusConfig: Record<string, { color: string; label: string }> = {
   signe: { color: 'bg-purple-500 hover:bg-purple-600', label: 'Signé' },
+  signé: { color: 'bg-purple-500 hover:bg-purple-600', label: 'Signé' },
   envoye: { color: 'bg-green-500 hover:bg-green-600', label: 'Envoyé' },
+  envoyé: { color: 'bg-green-500 hover:bg-green-600', label: 'Envoyé' },
   accepte: { color: 'bg-emerald-500 hover:bg-emerald-600', label: 'Accepté' },
+  accepté: { color: 'bg-emerald-500 hover:bg-emerald-600', label: 'Accepté' },
   refuse: { color: 'bg-red-500 hover:bg-red-600', label: 'Refusé' },
+  refusé: { color: 'bg-red-500 hover:bg-red-600', label: 'Refusé' },
   payes: { color: 'bg-blue-500 hover:bg-blue-600', label: 'Payés' },
+  payés: { color: 'bg-blue-500 hover:bg-blue-600', label: 'Payés' },
 
   nouveau: { color: 'bg-blue-500 hover:bg-blue-600', label: 'Nouveau' },
   contacte: { color: 'bg-purple-500 hover:bg-purple-600', label: 'Contacté' },
+  contacté: { color: 'bg-purple-500 hover:bg-purple-600', label: 'Contacté' },
   qualifie: { color: 'bg-emerald-500 hover:bg-emerald-600', label: 'Qualifié' },
+  qualifié: { color: 'bg-emerald-500 hover:bg-emerald-600', label: 'Qualifié' },
   devis_envoye: { color: 'bg-orange-500 hover:bg-orange-600', label: 'Devis envoyé' },
+  devis_envoyé: { color: 'bg-orange-500 hover:bg-orange-600', label: 'Devis envoyé' },
   chaud: { color: 'bg-lime-500 hover:bg-lime-600', label: 'Chaud' },
   perdu: { color: 'bg-gray-500 hover:bg-gray-600', label: 'Perdu' },
 };
