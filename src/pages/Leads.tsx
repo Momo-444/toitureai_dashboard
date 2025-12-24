@@ -195,19 +195,21 @@ export default function LeadsPage() {
                   <CardTitle className="text-lg">
                     {lead.nom} {lead.prenom}
                   </CardTitle>
-                  <Badge
+                 <Badge
   className={cn(
     "border-transparent text-white font-medium",
-    lead.statut === "nouveau" && "bg-blue-600 hover:bg-blue-700",
-    lead.statut === "contacte" && "bg-purple-600 hover:bg-purple-700",
-    lead.statut === "qualifie" && "bg-emerald-600 hover:bg-emerald-700",
-    lead.statut === "devis_envoye" && "bg-orange-600 hover:bg-orange-700",
-    lead.statut === "accepte" && "bg-green-600 hover:bg-green-700",
-    lead.statut === "refuse" && "bg-red-600 hover:bg-red-700",
-    lead.statut === "perdu" && "bg-gray-600 hover:bg-gray-700",
-    lead.statut === "chaud" && "bg-lime-600 hover:bg-lime-700",
-    // Fallback pour un statut inconnu
-    "bg-gray-500"
+    {
+      "bg-blue-500 hover:bg-blue-600": lead.statut === "nouveau",
+      "bg-purple-500 hover:bg-purple-600": lead.statut === "contacte",
+      "bg-emerald-500 hover:bg-emerald-600": lead.statut === "qualifie",
+      "bg-orange-500 hover:bg-orange-600": lead.statut === "devis_envoye",
+      "bg-green-500 hover:bg-green-600": lead.statut === "accepte",
+      "bg-red-500 hover:bg-red-600": lead.statut === "refuse",
+      "bg-gray-500 hover:bg-gray-600": lead.statut === "perdu",
+      "bg-lime-500 hover:bg-lime-600": lead.statut === "chaud",
+    },
+    // Fallback obligatoire pour éviter le gris par défaut
+    "bg-gray-400"
   )}
 >
   {lead.statut === "nouveau" ? "Nouveau" :
