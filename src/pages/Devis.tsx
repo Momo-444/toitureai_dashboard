@@ -153,13 +153,15 @@ export default function DevisPage() {
                   <Badge
   className={cn(
     "border-transparent text-white font-medium",
-    d.statut === "signe" && "bg-purple-500 hover:bg-purple-600",
-    d.statut === "envoye" && "bg-green-500 hover:bg-green-600",
-    d.statut === "accepte" && "bg-emerald-500 hover:bg-emerald-600",
-    d.statut === "refuse" && "bg-red-500 hover:bg-red-600",
-    d.statut === "payes" && "bg-blue-500 hover:bg-blue-600",
-    // Cas par défaut si un ancien statut bizarre traîne
-    !["signe", "envoye", "accepte", "refuse", "payes"].includes(d.statut) && "bg-gray-500"
+    {
+      "bg-purple-500 hover:bg-purple-600": d.statut === "signe",
+      "bg-green-500 hover:bg-green-600": d.statut === "envoye",
+      "bg-emerald-500 hover:bg-emerald-600": d.statut === "accepte",
+      "bg-red-500 hover:bg-red-600": d.statut === "refuse",
+      "bg-blue-500 hover:bg-blue-600": d.statut === "payes",
+    },
+    // Fallback forcé au cas où
+    "bg-gray-500 hover:bg-gray-600"
   )}
 >
   {d.statut === "signe" ? "Signé" :
@@ -167,7 +169,7 @@ export default function DevisPage() {
    d.statut === "accepte" ? "Accepté" :
    d.statut === "refuse" ? "Refusé" :
    d.statut === "payes" ? "Payés" :
-   d.statut}
+   d.statut || "Inconnu"}
 </Badge>
                 </div>
               </CardHeader>
