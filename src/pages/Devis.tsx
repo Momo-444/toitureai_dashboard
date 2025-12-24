@@ -150,27 +150,7 @@ export default function DevisPage() {
                       {d.numero} • {format(new Date(d.date_creation), 'dd MMM yyyy', { locale: fr })}
                     </p>
                   </div>
-                  <Badge
-  className={cn(
-    "border-transparent text-white font-medium",
-    {
-      "bg-purple-500 hover:bg-purple-600": d.statut === "signe",
-      "bg-green-500 hover:bg-green-600": d.statut === "envoye",
-      "bg-emerald-500 hover:bg-emerald-600": d.statut === "accepte",
-      "bg-red-500 hover:bg-red-600": d.statut === "refuse",
-      "bg-blue-500 hover:bg-blue-600": d.statut === "payes",
-    },
-    // Fallback forcé au cas où
-    "bg-gray-500 hover:bg-gray-600"
-  )}
->
-  {d.statut === "signe" ? "Signé" :
-   d.statut === "envoye" ? "Envoyé" :
-   d.statut === "accepte" ? "Accepté" :
-   d.statut === "refuse" ? "Refusé" :
-   d.statut === "payes" ? "Payés" :
-   d.statut || "Inconnu"}
-</Badge>
+                  <StatusBadge statut={d.statut} />
                 </div>
               </CardHeader>
               <CardContent className="space-y-4">
