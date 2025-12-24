@@ -89,76 +89,52 @@ export default function LeadsPage() {
   });
 
   const handleSendDevis = async (lead: Lead) => {
-    try {
-      toast.loading('Envoi du devis en cours...');
+  try {
+    toast.loading('Envoi du devis en cours...');
 
-      // 1. Créer le devis dans Supabase avec TOUTES les informations client
-      const { data: newDevis, error: devisError } = await supabase
-        .from('devis')
-        .insert([{
-          lead_id: lead.id,
-          client_nom: `${lead.nom} ${lead.prenom || ''}`.trim(),
-          client_email: lead.email || '',
-          client_telephone: lead.telephone || '',
-          client_adresse: lead.adresse || '',
-          statut: 'envoye',
-          montant_ht: 0,
-          montant_ttc: 0,
-          tva_pct: 10,
-          numero: '', // Le trigger génère le numéro automatiquement
-        }])
-        .select()
-        .single();
+    const response = await fetch('https://mohamed-proyecto-n8n.3ffj7o.easypanel.host/webhook/c5a970fd-d45d-445b-816d-45c4817806d5', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Webhook-Secret': '4ec2a273-089b-48a2-bfbc-e7fe8ac86bda'
+      },
+      body: JSON.stringify({
+        lead_id: lead.id,
+        nom: lead.nom,
+        prenom: lead.prenom,
+        email: lead.email,
+        telephone: lead.telephone,
+        adresse: lead.adresse,
+        ville: lead.ville,
+        type_projet: lead.type_projet,
+      }),
+    });
 
-      if (devisError) throw devisError;
+    if (!response.ok) throw new Error('Erreur lors de l\'envoi du devis');
 
-      // 2. Appeler le webhook N8N pour les actions supplémentaires (génération PDF, envoi email, etc.)
-      const response = await fetch('https://mohamed-proyecto-n8n.3ffj7o.easypanel.host/webhook/c5a970fd-d45d-445b-816d-45c4817806d5', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Webhook-Secret': '4ec2a273-089b-48a2-bfbc-e7fe8ac86bda'
-        },
-        body: JSON.stringify({
-          devis_id: newDevis.id,
-          lead_id: lead.id,
-          nom: lead.nom,
-          prenom: lead.prenom,
-          email: lead.email,
-          telephone: lead.telephone,
-          adresse: lead.adresse,
-          ville: lead.ville,
-          type_projet: lead.type_projet,
-        }),
-      });
+    // Mettre à jour le statut du lead à "devis_envoye"
+    const { error } = await supabase
+      .from('leads')
+      .update({ statut: 'devis_envoye' })
+      .eq('id', lead.id);
 
-      if (!response.ok) {
-        console.warn('Webhook N8N a échoué, mais le devis a été créé');
-      }
-
-      // 3. Mettre à jour le statut du lead à "devis_envoye"
-      const { error } = await supabase
-        .from('leads')
-        .update({ statut: 'devis_envoye' })
-        .eq('id', lead.id);
-
-      if (error) {
-        console.error('Error updating lead status:', error);
-        toast.dismiss();
-        toast.error('Devis créé mais erreur lors de la mise à jour du statut');
-      } else {
-        queryClient.invalidateQueries({ queryKey: ['leads'] });
-        queryClient.invalidateQueries({ queryKey: ['devis'] });
-        queryClient.invalidateQueries({ queryKey: ['latestDevisList'] });
-        toast.dismiss();
-        toast.success('Devis créé et envoyé avec succès');
-      }
-    } catch (error) {
+    if (error) {
+      console.error('Error updating lead status:', error);
       toast.dismiss();
-      toast.error('Erreur lors de la création du devis');
-      console.error('Erreur:', error);
+      toast.error('Devis Envoyé mais erreur lors de la mise à jour du statut');
+    } else {
+      queryClient.invalidateQueries({ queryKey: ['leads'] });
+      queryClient.invalidateQueries({ queryKey: ['devis'] });
+      queryClient.invalidateQueries({ queryKey: ['latestDevisList'] });
+      toast.dismiss();
+      toast.success('Devis Envoyé et statut mis à jour');
     }
-  };
+  } catch (error) {
+    toast.dismiss();
+    toast.error('Erreur lors de l\'envoi du devis');
+    console.error('Erreur:', error);
+  }
+};
 
   
 
