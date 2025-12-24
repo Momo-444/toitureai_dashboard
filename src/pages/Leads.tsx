@@ -10,6 +10,7 @@ import { Badge } from '@/components/ui/badge';
 import { Plus, Search, Trash2, Edit, FileText, Filter } from 'lucide-react';
 import { toast } from 'sonner';
 import { LeadDialog } from '@/components/leads/LeadDialog';
+import { cn } from '@/lib/utils';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import {
   AlertDialog,
@@ -132,16 +133,7 @@ export default function LeadsPage() {
     }
   };
 
-  const statusColors: Record<string, string> = {
-    nouveau: 'bg-blue-500',
-    contacte: 'bg-purple-500',
-    qualifie: 'bg-green-500',
-    devis_envoye: 'bg-orange-500',
-    accepte: 'bg-emerald-500',
-    refuse: 'bg-red-500',
-    perdu: 'bg-gray-500',
-    chaud: 'bg-green-500',
-  };
+  
 
   return (
     <div className="space-y-6">
@@ -203,9 +195,31 @@ export default function LeadsPage() {
                   <CardTitle className="text-lg">
                     {lead.nom} {lead.prenom}
                   </CardTitle>
-                  <Badge className={statusColors[lead.statut] || 'bg-gray-500'}>
-                    {lead.statut}
-                  </Badge>
+                  <Badge
+  className={cn(
+    "border-transparent text-white font-medium",
+    lead.statut === "nouveau" && "bg-blue-600 hover:bg-blue-700",
+    lead.statut === "contacte" && "bg-purple-600 hover:bg-purple-700",
+    lead.statut === "qualifie" && "bg-emerald-600 hover:bg-emerald-700",
+    lead.statut === "devis_envoye" && "bg-orange-600 hover:bg-orange-700",
+    lead.statut === "accepte" && "bg-green-600 hover:bg-green-700",
+    lead.statut === "refuse" && "bg-red-600 hover:bg-red-700",
+    lead.statut === "perdu" && "bg-gray-600 hover:bg-gray-700",
+    lead.statut === "chaud" && "bg-lime-600 hover:bg-lime-700",
+    // Fallback pour un statut inconnu
+    "bg-gray-500"
+  )}
+>
+  {lead.statut === "nouveau" ? "Nouveau" :
+   lead.statut === "contacte" ? "Contacté" :
+   lead.statut === "qualifie" ? "Qualifié" :
+   lead.statut === "devis_envoye" ? "Devis envoyé" :
+   lead.statut === "accepte" ? "Accepté" :
+   lead.statut === "refuse" ? "Refusé" :
+   lead.statut === "perdu" ? "Perdu" :
+   lead.statut === "chaud" ? "Chaud" :
+   lead.statut || "Inconnu"}
+</Badge>
                 </div>
               </CardHeader>
               <CardContent className="space-y-2">
