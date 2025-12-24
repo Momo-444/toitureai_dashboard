@@ -89,52 +89,52 @@ export default function LeadsPage() {
   });
 
   const handleSendDevis = async (lead: Lead) => {
-  try {
-    toast.loading('Envoi du devis en cours...');
+    try {
+      toast.loading('Envoi du devis en cours...');
 
-    const response = await fetch('https://mohamed-proyecto-n8n.3ffj7o.easypanel.host/webhook/c5a970fd-d45d-445b-816d-45c4817806d5', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Webhook-Secret': '4ec2a273-089b-48a2-bfbc-e7fe8ac86bda'
-      },
-      body: JSON.stringify({
-        lead_id: lead.id,
-        nom: lead.nom,
-        prenom: lead.prenom,
-        email: lead.email,
-        telephone: lead.telephone,
-        adresse: lead.adresse,
-        ville: lead.ville,
-        type_projet: lead.type_projet,
-      }),
-    });
+      const response = await fetch('https://mohamed-proyecto-n8n.3ffj7o.easypanel.host/webhook/c5a970fd-d45d-445b-816d-45c4817806d5', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Webhook-Secret': '4ec2a273-089b-48a2-bfbc-e7fe8ac86bda'
+        },
+        body: JSON.stringify({
+          lead_id: lead.id,
+          nom: lead.nom,
+          prenom: lead.prenom,
+          email: lead.email,
+          telephone: lead.telephone,
+          adresse: lead.adresse,
+          ville: lead.ville,
+          type_projet: lead.type_projet,
+        }),
+      });
 
-    if (!response.ok) throw new Error('Erreur lors de l\'envoi du devis');
+      if (!response.ok) throw new Error('Erreur lors de l\'envoi du devis');
 
-    // Mettre à jour le statut du lead à "devis_envoye"
-    const { error } = await supabase
-      .from('leads')
-      .update({ statut: 'devis_envoye' })
-      .eq('id', lead.id);
+      // Mettre à jour le statut du lead à "devis_envoye"
+      const { error } = await supabase
+        .from('leads')
+        .update({ statut: 'devis_envoye' })
+        .eq('id', lead.id);
 
-    if (error) {
-      console.error('Error updating lead status:', error);
+      if (error) {
+        console.error('Error updating lead status:', error);
+        toast.dismiss();
+        toast.error('Devis Envoyé mais erreur lors de la mise à jour du statut');
+      } else {
+        queryClient.invalidateQueries({ queryKey: ['leads'] });
+        queryClient.invalidateQueries({ queryKey: ['devis'] });
+        queryClient.invalidateQueries({ queryKey: ['latestDevisList'] });
+        toast.dismiss();
+        toast.success('Devis Envoyé et statut mis à jour');
+      }
+    } catch (error) {
       toast.dismiss();
-      toast.error('Devis Envoyé mais erreur lors de la mise à jour du statut');
-    } else {
-      queryClient.invalidateQueries({ queryKey: ['leads'] });
-      queryClient.invalidateQueries({ queryKey: ['devis'] });
-      queryClient.invalidateQueries({ queryKey: ['latestDevisList'] });
-      toast.dismiss();
-      toast.success('Devis Envoyé et statut mis à jour');
+      toast.error('Erreur lors de l\'envoi du devis');
+      console.error('Erreur:', error);
     }
-  } catch (error) {
-    toast.dismiss();
-    toast.error('Erreur lors de l\'envoi du devis');
-    console.error('Erreur:', error);
-  }
-};
+  };
 
   
 
