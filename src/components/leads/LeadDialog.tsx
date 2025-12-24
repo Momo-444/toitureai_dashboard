@@ -31,16 +31,7 @@ interface LeadDialogProps {
   lead?: Lead | null;
 }
 
-const statusOptions = [
-  'nouveau',
-  'contacte',
-  'qualifie',
-  'devis_envoye',
-  'accepte',
-  'refuse',
-  'perdu',
-  'chaud',
-];
+
 
 export const LeadDialog = ({ open, onOpenChange, lead }: LeadDialogProps) => {
   const queryClient = useQueryClient();
