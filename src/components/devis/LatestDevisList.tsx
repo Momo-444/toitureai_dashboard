@@ -66,27 +66,7 @@ export const LatestDevisList = () => {
               </div>
               
               <div className="flex items-center gap-4">
-                <Badge
-  className={cn(
-    "border-transparent text-white font-medium",
-    {
-      "bg-purple-500 hover:bg-purple-600": d.statut === "signe",
-      "bg-green-500 hover:bg-green-600": d.statut === "envoye",
-      "bg-emerald-500 hover:bg-emerald-600": d.statut === "accepte",
-      "bg-red-500 hover:bg-red-600": d.statut === "refuse",
-      "bg-blue-500 hover:bg-blue-600": d.statut === "payes",
-    },
-    // Fallback forcé au cas où
-    "bg-gray-500 hover:bg-gray-600"
-  )}
->
-  {d.statut === "signe" ? "Signé" :
-   d.statut === "envoye" ? "Envoyé" :
-   d.statut === "accepte" ? "Accepté" :
-   d.statut === "refuse" ? "Refusé" :
-   d.statut === "payes" ? "Payés" :
-   d.statut || "Inconnu"}
-</Badge>
+               <StatusBadge statut={d.statut} />
                 <p className="font-bold">{d.montant_ttc.toLocaleString('fr-FR')} €</p>
                 {d.url_pdf && (
                   <Button variant="outline" size="sm" asChild>
