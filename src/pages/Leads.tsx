@@ -198,18 +198,16 @@ export default function LeadsPage() {
                  <Badge
   className={cn(
     "border-transparent text-white font-medium",
-    {
-      "bg-blue-500 hover:bg-blue-600": lead.statut === "nouveau",
-      "bg-purple-500 hover:bg-purple-600": lead.statut === "contacte",
-      "bg-emerald-500 hover:bg-emerald-600": lead.statut === "qualifie",
-      "bg-orange-500 hover:bg-orange-600": lead.statut === "devis_envoye",
-      "bg-green-500 hover:bg-green-600": lead.statut === "accepte",
-      "bg-red-500 hover:bg-red-600": lead.statut === "refuse",
-      "bg-gray-500 hover:bg-gray-600": lead.statut === "perdu",
-      "bg-lime-500 hover:bg-lime-600": lead.statut === "chaud",
-    },
-    // Fallback obligatoire pour éviter le gris par défaut
-    "bg-gray-400"
+    lead.statut === "nouveau" && "bg-blue-500 hover:bg-blue-600",
+    lead.statut === "contacte" && "bg-purple-500 hover:bg-purple-600",
+    lead.statut === "qualifie" && "bg-emerald-500 hover:bg-emerald-600",
+    lead.statut === "devis_envoye" && "bg-orange-500 hover:bg-orange-600",
+    lead.statut === "accepte" && "bg-green-500 hover:bg-green-600",
+    lead.statut === "refuse" && "bg-red-500 hover:bg-red-600",
+    lead.statut === "perdu" && "bg-gray-500 hover:bg-gray-600",
+    lead.statut === "chaud" && "bg-lime-500 hover:bg-lime-600",
+    // Fallback safe : gris foncé si statut inconnu (très rare)
+    !["nouveau", "contacte", "qualifie", "devis_envoye", "accepte", "refuse", "perdu", "chaud"].includes(lead.statut || "") && "bg-gray-500 hover:bg-gray-600"
   )}
 >
   {lead.statut === "nouveau" ? "Nouveau" :
