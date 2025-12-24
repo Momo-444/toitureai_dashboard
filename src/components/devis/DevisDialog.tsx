@@ -10,7 +10,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { StatusBadge } from '@/components/ui/StatusBadge';
 
 interface DevisDialogProps {
   open: boolean;
@@ -18,7 +17,7 @@ interface DevisDialogProps {
   devis?: Devis | null;
 }
 
-
+const statusOptions = ["signe", "envoye", "accepte", "refuse", "payes"];
 
 export const DevisDialog = ({ open, onOpenChange, devis }: DevisDialogProps) => {
   const queryClient = useQueryClient();
@@ -158,20 +157,20 @@ export const DevisDialog = ({ open, onOpenChange, devis }: DevisDialogProps) => 
             </div>
 
             <div className="space-y-2">
-                  <Label htmlFor="statut">Statut *</Label>
-                  <Select value={statut} onValueChange={(value) => setValue('statut', value)}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Sélectionnez un statut" />
-                    </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="signe">Signé</SelectItem>
-                    <SelectItem value="envoye">Envoyé</SelectItem>
-                    <SelectItem value="accepte">Accepté</SelectItem>
-                    <SelectItem value="refuse">Refusé</SelectItem>
-                    <SelectItem value="payes">Payés</SelectItem>
-                  </SelectContent>
-                  </Select>
-                </div>
+              <Label htmlFor="statut">Statut *</Label>
+              <Select value={statut} onValueChange={(value) => setValue("statut", value)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Sélectionnez un statut" />
+                </SelectTrigger>
+                <SelectContent>
+                  {statusOptions.map((status) => (
+                    <SelectItem key={status} value={status}>
+                      {status}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
 
             <div className="space-y-2 col-span-2">
               <Label htmlFor="client_nom">Nom du client *</Label>
