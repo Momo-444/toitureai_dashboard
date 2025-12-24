@@ -195,33 +195,7 @@ export default function LeadsPage() {
                   <CardTitle className="text-lg">
                     {lead.nom} {lead.prenom}
                   </CardTitle>
-                 <Badge
-  className={cn(
-    "border-transparent text-white font-medium",
-    {
-      "bg-blue-500 hover:bg-blue-600": lead.statut === "nouveau",
-      "bg-purple-500 hover:bg-purple-600": lead.statut === "contacte",
-      "bg-emerald-500 hover:bg-emerald-600": lead.statut === "qualifie",
-      "bg-orange-500 hover:bg-orange-600": lead.statut === "devis_envoye",
-      "bg-green-500 hover:bg-green-600": lead.statut === "accepte",
-      "bg-red-500 hover:bg-red-600": lead.statut === "refuse",
-      "bg-gray-500 hover:bg-gray-600": lead.statut === "perdu",
-      "bg-lime-500 hover:bg-lime-600": lead.statut === "chaud",
-    },
-    // Fallback forcé pour les cas inconnus
-    "bg-gray-500 hover:bg-gray-600"
-  )}
->
-  {lead.statut === "nouveau" ? "Nouveau" :
-   lead.statut === "contacte" ? "Contacté" :
-   lead.statut === "qualifie" ? "Qualifié" :
-   lead.statut === "devis_envoye" ? "Devis envoyé" :
-   lead.statut === "accepte" ? "Accepté" :
-   lead.statut === "refuse" ? "Refusé" :
-   lead.statut === "perdu" ? "Perdu" :
-   lead.statut === "chaud" ? "Chaud" :
-   lead.statut || "Inconnu"}
-</Badge>
+                 <StatusBadge statut={lead.statut as StatusType} />
                 </div>
               </CardHeader>
               <CardContent className="space-y-2">
