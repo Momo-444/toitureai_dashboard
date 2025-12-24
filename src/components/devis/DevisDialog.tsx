@@ -17,7 +17,13 @@ interface DevisDialogProps {
   devis?: Devis | null;
 }
 
-const statusOptions = ["signe", "envoye", "accepte", "refuse", "payes"];
+ const statusOptions = [
+    { value: "signe", label: "Signé" },
+    { value: "envoye", label: "Envoyé" },
+    { value: "accepte", label: "Accepté" },
+    { value: "refuse", label: "Refusé" },
+    { value: "payes", label: "Payés" },
+  ];
 
 export const DevisDialog = ({ open, onOpenChange, devis }: DevisDialogProps) => {
   const queryClient = useQueryClient();
@@ -164,10 +170,10 @@ export const DevisDialog = ({ open, onOpenChange, devis }: DevisDialogProps) => 
                 </SelectTrigger>
                 <SelectContent>
                   {statusOptions.map((status) => (
-                    <SelectItem key={status} value={status}>
-                      {status}
-                    </SelectItem>
-                  ))}
+                <SelectItem key={status.value} value={status.value}>
+                   {status.label}
+                </SelectItem>
+                ))}
                 </SelectContent>
               </Select>
             </div>
