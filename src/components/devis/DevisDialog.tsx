@@ -58,24 +58,27 @@ export const DevisDialog = ({ open, onOpenChange, devis }: DevisDialogProps) => 
   }, [leadId, leads, setValue]);
 
   useEffect(() => {
-    if (open) {
-      if (devis) {
-        reset(devis);
-      } else {
-        reset({
-          statut: "envoye",
-          tva_pct: 10,
-          montant_ht: 0,
-          montant_ttc: 0,
-          client_nom: "",
-          client_email: "",
-          client_telephone: "",
-          client_adresse: "",
-          notes: "",
-        });
-      }
-    }
-  }, [devis, reset, open]);
+  if (!open) return;
+  
+  if (devis) {
+    reset({
+      ...devis,
+      statut: devis.statut || "envoye",
+    });
+  } else {
+    reset({
+      statut: "envoye",
+      tva_pct: 10,
+      montant_ht: 0,
+      montant_ttc: 0,
+      client_nom: "",
+      client_email: "",
+      client_telephone: "",
+      client_adresse: "",
+      notes: "",
+    });
+  }
+}, [devis, open, reset]);
 
   useEffect(() => {
     const ttc = montantHt * (1 + tvaPct / 100);
@@ -164,7 +167,7 @@ export const DevisDialog = ({ open, onOpenChange, devis }: DevisDialogProps) => 
 
             <div className="space-y-2">
               <Label htmlFor="statut">Statut *</Label>
-              <Select value={statut} onValueChange={(value) => setValue("statut", value)}>
+              <Select value={statut || ""} onValueChange={(value) => setValue("statut", value)}>
                 <SelectTrigger>
                   <SelectValue placeholder="Sélectionnez un statut" />
                 </SelectTrigger>
