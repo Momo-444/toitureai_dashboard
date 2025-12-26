@@ -58,13 +58,8 @@ export const DevisDialog = ({ open, onOpenChange, devis }: DevisDialogProps) => 
   }, [leadId, leads, setValue]);
 
   useEffect(() => {
-  if (!open) return;
-  
   if (devis) {
-    reset({
-      ...devis,
-      statut: devis.statut || "envoye",
-    });
+    reset(devis);
   } else {
     reset({
       statut: "envoye",
@@ -78,7 +73,7 @@ export const DevisDialog = ({ open, onOpenChange, devis }: DevisDialogProps) => 
       notes: "",
     });
   }
-}, [devis, open, reset]);
+}, [devis, reset]);
 
   useEffect(() => {
     const ttc = montantHt * (1 + tvaPct / 100);
